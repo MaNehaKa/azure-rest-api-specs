@@ -27,16 +27,16 @@ These are the global settings for the Batch API.
 ``` yaml
 title: BatchServiceClient
 openapi-type: data-plane
-tag: package-2024-02
+tag: package-2024-07
 ```
 
-### Tag: package-2024-02.19.0-preview
+### Tag: package-2024-07-preview
 
-These settings apply only when `--tag=package-2024-02.19.0-preview` is specified on the command line.
+These settings apply only when `--tag=package-2024-07-preview` is specified on the command line.
 
-```yaml $(tag) == 'package-2024-02.19.0-preview'
+```yaml $(tag) == 'package-2024-07-preview'
 input-file:
-  - Azure.Batch/preview/2024-02-01.19.0/BatchService.json
+  - Azure.Batch/preview/2024-07-01/BatchService.json
 ```
 
 ### Tag: package-2024-02
