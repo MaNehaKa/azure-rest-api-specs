@@ -38,6 +38,13 @@ const config = tseslint.config(
   // @ts-expect-error The unicorn configs are not typed correctly, but they do work.
   // Snippet taken from https://github.com/sindresorhus/eslint-plugin-unicorn#preset-configs-eslintconfigjs
   eslintPluginUnicorn.configs['flat/recommended'],
+  // Note: in spite of my best efforts, I did not manage to get lodash eslint plugin to work in a clean way.
+  // https://github.com/wix-incubator/eslint-plugin-lodash
+  // I did manage to get it to lint, but the ESLint server output was throwing error about
+  // not being able to locate the config file.
+  // I suspect this is because the plugin was not migrated t the new flat config format since ESLint v9.
+  // Maybe this can be worked around with
+  // https://eslint.org/blog/2024/05/eslint-compatibility-utilities/
 
   // ========================================
   // Rulesets overrides
