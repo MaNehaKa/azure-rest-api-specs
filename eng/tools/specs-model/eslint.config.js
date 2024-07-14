@@ -10,6 +10,9 @@ import tseslint from 'typescript-eslint'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 
 const config = tseslint.config(
+  // ========================================
+  // ESLint + TS-ESLINT configs
+  // ========================================
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
@@ -20,6 +23,26 @@ const config = tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
+  },
+  {
+    // Disable type-aware linting on JS files
+    // Otherwise eslint would complain about missing types in JS files, including this config file.
+    // Config snippet taken from https://typescript-eslint.io/packages/typescript-eslint/#advanced-usage
+    files: ['**/*.js'],
+    ...tseslint.configs.disableTypeChecked,
+  },
+
+  // ========================================
+  // Secondary configs
+  // ========================================
+  // @ts-expect-error The unicorn configs are not typed correctly, but they do work.
+  // Snippet taken from https://github.com/sindresorhus/eslint-plugin-unicorn#preset-configs-eslintconfigjs
+  eslintPluginUnicorn.configs['flat/recommended'],
+
+  // ========================================
+  // Rulesets overrides (adjustments)
+  // ========================================
+  {
     rules: {
       // Sometimes we have to help the type checker with "!":
       // e.g. when doing `if (arr.length > 0) { const ... = arr[0]! }`
@@ -27,17 +50,7 @@ const config = tseslint.config(
       // Note: this originates from [strict]
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
-  },
-  {
-    // Disable type-aware linting on JS files
-    // Otherwise eslint would complaing about missing types in JS files, including this config file.
-    // Config snippet taken from https://typescript-eslint.io/packages/typescript-eslint/#advanced-usage
-    files: ['**/*.js'],
-    ...tseslint.configs.disableTypeChecked,
-  },
-  // @ts-expect-error The unicorn configs are not typed correctly, but they do work.
-  // Snippet taken from https://github.com/sindresorhus/eslint-plugin-unicorn#preset-configs-eslintconfigjs
-  eslintPluginUnicorn.configs['flat/recommended']
+  }
 )
 
 export default config

@@ -1,4 +1,4 @@
-import { exit } from 'process'
+import { exit } from 'node:process'
 import { getSpecsModel } from './getSpecsModel.js'
 
 function getUsage(): string {
@@ -29,5 +29,5 @@ export async function main() {
   }
 }
 
-export { getSpecsModel }
+export { getSpecsModel } from './getSpecsModel.js'
 
