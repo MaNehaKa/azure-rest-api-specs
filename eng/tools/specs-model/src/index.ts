@@ -20,7 +20,7 @@ export async function main() {
 
   if (args.length >= 1) {
     const path: string = args[0]!
-    const specsModel: any = await getSpecsModel(path)
+    const specsModel: string = await getSpecsModel(path)
     console.log(JSON.stringify(specsModel))
     exit(0)
   } else {

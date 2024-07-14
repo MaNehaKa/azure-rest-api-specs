@@ -18,6 +18,12 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    rules: {
+      // Sometimes we have to help the type checker with "!":
+      // e.g. when doing `if (arr.length > 0) { const ... = arr[0]! }`
+      // https://typescript-eslint.io/rules/no-non-null-assertion
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
   }
 )
 
