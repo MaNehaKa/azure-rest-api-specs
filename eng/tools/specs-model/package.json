@@ -1,0 +1,22 @@
+{
+  "name": "@azure-tools/specs-model",
+  "private": true,
+  "type": "module",
+  "main": "dist/src/index.js",
+  "devDependencies": {
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/node": "^18.19.31",
+    "@vitest/coverage-v8": "^1.6.0",
+    "typescript": "~5.4.5",
+    "vitest": "^1.6.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "postinstall": "npm run build",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage --reporter=verbose"
+  },
+  "engines": {
+    "node": ">= 18.0.0"
+  }
+}

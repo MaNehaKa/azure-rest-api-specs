@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "../tsconfig.json",
+    // [strictest]
+    "@tsconfig/strictest/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "ES2022",
+    "lib": ["ES2022"]
+  }
+}
+
+// [strictest]: https://www.npmjs.com/package/@tsconfig/strictest from [tsconfig bases]
+// [tsconfig bases]: https://github.com/tsconfig/bases#centralized-recommendations-for-tsconfig-bases from https://www.typescriptlang.org/tsconfig#target
+
