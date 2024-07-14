@@ -11,7 +11,7 @@ import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 
 const config = tseslint.config(
   // ========================================
-  // ESLint + TS-ESLINT configs
+  // ESLint + TS-ESLint configs
   // ========================================
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
@@ -26,7 +26,7 @@ const config = tseslint.config(
   },
   {
     // Disable type-aware linting on JS files
-    // Otherwise eslint would complain about missing types in JS files, including this config file.
+    // Otherwise eslint would complain about types in JS files, including this config file.
     // Config snippet taken from https://typescript-eslint.io/packages/typescript-eslint/#advanced-usage
     files: ['**/*.js'],
     ...tseslint.configs.disableTypeChecked,
@@ -40,14 +40,14 @@ const config = tseslint.config(
   eslintPluginUnicorn.configs['flat/recommended'],
 
   // ========================================
-  // Rulesets overrides (adjustments)
+  // Rulesets overrides
   // ========================================
   {
     rules: {
       // Sometimes we have to help the type checker with "!":
       // e.g. when doing `if (arr.length > 0) { const ... = arr[0]! }`
-      // https://typescript-eslint.io/rules/no-non-null-assertion
       // Note: this originates from [strict]
+      // https://typescript-eslint.io/rules/no-non-null-assertion
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
   }
