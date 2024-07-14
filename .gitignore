@@ -116,6 +116,7 @@ warnings.txt
 .apitest
 .assets
 
+# Blanket ignores
 *.js
 *.d.ts
 *.js.map
@@ -125,3 +126,4 @@ warnings.txt
 # Eng Tools
 eng/tools/**/dist
 !eng/tools/**/cmd/*.js
+!eng/tools/**/eslint.config.js
