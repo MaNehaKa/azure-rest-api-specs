@@ -123,5 +123,5 @@ warnings.txt
 *.bak
 
 # Eng Tools
-eng/tools/typespec-validation/dist
-!eng/tools/typespec-validation/cmd/*.js
+eng/tools/**/dist
+!eng/tools/**/cmd/*.js
