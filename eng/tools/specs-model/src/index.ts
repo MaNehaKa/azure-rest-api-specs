@@ -11,15 +11,14 @@ function getUsage(): string {
     '- Must point to the <local_clone>/specification directory or one of its descendants.\n' +
     '\n' +
     'Example: npx get-specs-model $HOME/repos/azure-rest-api-specs/specification\n' +
-    "Returns: JSON with metadata for the entire 'specification' directory o the local clone of 'azure-rest-api-specs' repo.\n"
+    "Returns: JSON with metadata for the entire 'specification' directory of the local clone of 'azure-rest-api-specs' repo.\n"
   )
 }
 
 export async function main() {
-  const args: string[] = process.argv.slice(1)
-  console.log('args length: ' + args.length)
+  const args: string[] = process.argv.slice(2)
 
-  if (args.length === 1) {
+  if (args.length >= 1) {
     const path: string = args[0]!
     const specsModel: any = await getSpecsModel(path)
     console.log(JSON.stringify(specsModel))
@@ -29,4 +28,6 @@ export async function main() {
     exit(1)
   }
 }
+
+export { getSpecsModel }
 
