@@ -18,6 +18,7 @@ function getUsage(): string {
 export async function main() {
   const args: string[] = process.argv.slice(2)
 
+  const test = args instanceof Array
   if (args.length >= 1) {
     const path: string = args[0]!
     const specsModel: string = await getSpecsModel(path)

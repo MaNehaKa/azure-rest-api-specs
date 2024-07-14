@@ -6,6 +6,7 @@
 
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
+import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 
 export default tseslint.config(
   eslint.configs.recommended,
@@ -22,9 +23,12 @@ export default tseslint.config(
       // Sometimes we have to help the type checker with "!":
       // e.g. when doing `if (arr.length > 0) { const ... = arr[0]! }`
       // https://typescript-eslint.io/rules/no-non-null-assertion
+      // Note: this originates from [strict]
       '@typescript-eslint/no-non-null-assertion': 'off',
     },
   }
+  // @ts-ignore
+  // ...eslintPluginUnicorn.configs['flat/recommended']
 )
 
 // export default [
@@ -40,4 +44,6 @@ export default tseslint.config(
 //   ...tseslint.configs.recommendedTypeChecked,
 //   ...tseslint.configs.stylisticTypeChecked,
 // );
+
+// [strict]: https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
 
