@@ -17,6 +17,7 @@ function getUsage(): string {
 
 export async function main() {
   const args: string[] = process.argv.slice(1)
+  console.log('args length: ' + args.length)
 
   if (args.length === 1) {
     const path: string = args[0]!
