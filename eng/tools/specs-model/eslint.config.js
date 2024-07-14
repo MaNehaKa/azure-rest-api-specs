@@ -1,11 +1,13 @@
 // @ts-check
 
-// This file contents is based on:
+// The overall contents of this file is based on:
 // https://typescript-eslint.io/getting-started#step-2-configuration
 // https://typescript-eslint.io/getting-started/typed-linting/#shared-configurations
+// Read inline comments for details on other sources.
 
 import eslint from '@eslint/js'
 import tseslint from 'typescript-eslint'
+import eslintPluginUnicorn from 'eslint-plugin-unicorn'
 
 const config = tseslint.config(
   eslint.configs.recommended,
@@ -27,11 +29,15 @@ const config = tseslint.config(
     },
   },
   {
-    // disable type-aware linting on JS files
+    // Disable type-aware linting on JS files
+    // Otherwise eslint would complaing about missing types in JS files, including this config file.
     // Config snippet taken from https://typescript-eslint.io/packages/typescript-eslint/#advanced-usage
     files: ['**/*.js'],
     ...tseslint.configs.disableTypeChecked,
-  }
+  },
+  // @ts-expect-error The unicorn configs are not typed correctly, but they do work.
+  // Snippet taken from https://github.com/sindresorhus/eslint-plugin-unicorn#preset-configs-eslintconfigjs
+  eslintPluginUnicorn.configs['flat/recommended']
 )
 
 export default config
@@ -39,14 +45,6 @@ export default config
 // Debug tool:
 // Uncomment to print the config. View it in VS Code / Output / ESLint. Run "ESLint: Restart ESLint Server" command to force output.
 // console.log(`ESLint config: ${JSON.stringify(config)}`)
-
-// export default [
-//   { files: ['**/*.{js,mjs,cjs,ts}'] },
-//   { languageOptions: { globals: globals.browser } },
-//   pluginJs.configs.recommended,
-//   ...tseslint.configs.recommendedTypeChecked,
-//   ...tseslint.configs.stylisticTypeChecked,
-// ]
 
 // [strict]: https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
 
