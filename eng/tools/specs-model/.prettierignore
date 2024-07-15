@@ -2,4 +2,3 @@
 *.md
 *.jsonc
 dist
-azure-pipelines.yml
