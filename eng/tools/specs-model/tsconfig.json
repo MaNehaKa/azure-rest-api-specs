@@ -2,7 +2,7 @@
   "extends": [
     "../tsconfig.json",
     // [strictest]
-    "@tsconfig/strictest/tsconfig.json"
+    "../tsconfig_strictest.json"
   ],
   "compilerOptions": {
     "outDir": "./dist",
