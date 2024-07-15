@@ -23,5 +23,5 @@ jobs:
     uses: ./.github/workflows/_reusable-eng-tools-test.yaml
     with:
       package: specs-model
-      lint: false
+      lint: true
       prettier: true
