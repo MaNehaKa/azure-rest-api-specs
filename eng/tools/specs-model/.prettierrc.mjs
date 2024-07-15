@@ -13,7 +13,6 @@ const config = {
   semi: true,
   singleQuote: false,
   tabWidth: 2,
-  plugins: ["./node_modules/prettier-plugin-organize-imports/index.js"],
 };
 
 export default config;
