@@ -78,9 +78,10 @@ const config = tseslint.config(
       // We allow some abbreviations that we like.
       // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/prevent-abbreviations.md
       "unicorn/prevent-abbreviations": {
-        "allowList": {
-          "args": true
-        }
+        allowList: {
+          args: true,
+        },
+      },
     },
   }
 );
