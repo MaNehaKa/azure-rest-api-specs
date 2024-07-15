@@ -1,8 +1,8 @@
 {
   "extends": [
     "../tsconfig.json",
-    // [strictest], but see the comment inside the extended file.
-    "../tsconfig_strictest.json"
+    // [strictest]
+    "@tsconfig/strictest/tsconfig.json"
   ],
   "compilerOptions": {
     "outDir": "./dist",
