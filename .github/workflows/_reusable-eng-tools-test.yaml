@@ -8,6 +8,14 @@ on:
         description: Name of package under eng/tools
         required: true
         type: string
+      lint:
+        description: Run 'npm run lint' if true
+        required: false
+        type: boolean
+      prettier:
+        description: Run 'npm run prettier' if true
+        required: false
+        type: boolean
 
 jobs:
   test:
@@ -43,6 +51,16 @@ jobs:
       - run: npm run build
         shell: pwsh
         working-directory: ./eng/tools/${{ inputs.package }}
+
+      - run: npm run lint
+        if: ${{ github.event.inputs.lint == 'true' }}
+        shell: pwsh
+        working-directory: ./eng/tools/${{ inputs.package }}
+
+      - run: npm run prettier
+        if: ${{ github.event.inputs.prettier == 'true' }}
+        shell: pwsh
+        working-directory: ./eng/tools/${{ inputs.package }}        
 
       - run: npm run test:ci
         shell: pwsh
