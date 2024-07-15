@@ -3,8 +3,25 @@
   "private": true,
   "type": "module",
   "main": "dist/src/index.js",
+  "engines": {
+    "node": ">= 18.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "postinstall": "npm run build",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage --reporter=verbose",
+    "lint": "eslint . -c eslint.config.js --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . -c eslint.config.js --fix",
+    "prettier": "prettier . --check --end-of-line auto",
+    "prettier:debug": "prettier . --check --end-of-line auto --log-level debug",
+    "prettier:write": "prettier . --end-of-line auto --write"
+  },
   "bin": {
     "get-specs-model": "cmd/get-specs-model.js"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
@@ -19,20 +36,8 @@
     "typescript-eslint": "^7.16.0",
     "vitest": "^1.6.0"
   },
-  "scripts": {
-    "build": "tsc",
-    "postinstall": "npm run build",
-    "test": "vitest",
-    "test:ci": "vitest run --coverage --reporter=verbose"
-  },
-  "engines": {
-    "node": ">= 18.0.0"
-  },
   "overrides": {
     "eslint": "^9.7.0"
-  },
-  "dependencies": {
-    "lodash": "^4.17.21"
   }
 }
 

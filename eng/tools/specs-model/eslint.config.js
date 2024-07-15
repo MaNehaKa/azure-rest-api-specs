@@ -13,6 +13,14 @@ const config = tseslint.config(
   // ========================================
   // ESLint + TS-ESLint configs
   // ========================================
+  {
+    // Needed for 'npm run lint' per:
+    // https://eslint.org/docs/latest/use/configure/migration-guide#--ext
+    // See also:
+    // - https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file
+    // - https://eslint.org/docs/latest/use/configure/ignore
+    ignores: ['.prettierrc.cjs', '**/*.d.ts', '**/*.js'],
+  },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...tseslint.configs.stylisticTypeChecked,
@@ -25,9 +33,10 @@ const config = tseslint.config(
     },
   },
   {
-    // Disable type-aware linting on JS files
-    // Otherwise eslint would complain about types in JS files, including this config file.
+    // Disable type-aware linting on .js files
+    // Otherwise eslint would complain about types in .js files, including this config file.
     // Config snippet taken from https://typescript-eslint.io/packages/typescript-eslint/#advanced-usage
+    // Note: this is likely redundant with the global ignores of .js files, but keeping here for reference.
     files: ['**/*.js'],
     ...tseslint.configs.disableTypeChecked,
   },
@@ -42,7 +51,7 @@ const config = tseslint.config(
   // https://github.com/wix-incubator/eslint-plugin-lodash
   // I did manage to get it to lint, but the ESLint server output was throwing error about
   // not being able to locate the config file.
-  // I suspect this is because the plugin was not migrated t the new flat config format since ESLint v9.
+  // I suspect this is because the plugin was not migrated to the new flat config format since ESLint v9.
   // Maybe this can be worked around with
   // https://eslint.org/blog/2024/05/eslint-compatibility-utilities/
 
@@ -56,6 +65,9 @@ const config = tseslint.config(
       // Note: this originates from [strict]
       // https://typescript-eslint.io/rules/no-non-null-assertion
       '@typescript-eslint/no-non-null-assertion': 'off',
+      // We want more flexibility with file names.
+      // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/filename-case.md
+      'unicorn/filename-case': 'off',
     },
   }
 )
