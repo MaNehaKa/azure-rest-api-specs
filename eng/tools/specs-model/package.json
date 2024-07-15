@@ -13,9 +13,9 @@
     "test:ci": "vitest run --coverage --reporter=verbose",
     "lint": "eslint . -c eslint.config.js --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . -c eslint.config.js --fix",
-    "prettier": "prettier . --check --end-of-line auto",
-    "prettier:debug": "prettier . --check --end-of-line auto --log-level debug",
-    "prettier:write": "prettier . --end-of-line auto --write"
+    "prettier": "prettier . --check",
+    "prettier:debug": "prettier . --check ---log-level debug",
+    "prettier:write": "prettier . --write"
   },
   "bin": {
     "get-specs-model": "cmd/get-specs-model.js"

@@ -1,5 +1,5 @@
 *.json
 *.md
 *.jsonc
-.prettierrc
+dist
 azure-pipelines.yml

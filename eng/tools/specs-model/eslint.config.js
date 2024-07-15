@@ -19,7 +19,7 @@ const config = tseslint.config(
     // See also:
     // - https://typescript-eslint.io/troubleshooting/typed-linting/#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file
     // - https://eslint.org/docs/latest/use/configure/ignore
-    ignores: ['.prettierrc.cjs', '**/*.d.ts', '**/*.js'],
+    ignores: ['.prettierrc.cjs', '**/*.d.ts', '**/*.js', '**/*.mjs'],
   },
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
@@ -69,7 +69,7 @@ const config = tseslint.config(
       // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/docs/rules/filename-case.md
       'unicorn/filename-case': 'off',
     },
-  }
+  },
 )
 
 export default config
@@ -79,4 +79,3 @@ export default config
 // console.log(`ESLint config: ${JSON.stringify(config)}`)
 
 // [strict]: https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/strict.ts
-
