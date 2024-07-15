@@ -63,7 +63,7 @@
                 "enableAutomaticUpdates": false
               },
               "nodePlacementConfiguration": {
-                "policy": "Zonal"
+                "policy": "zonal"
               }
             },
             "resizeTimeout": "PT15M",
