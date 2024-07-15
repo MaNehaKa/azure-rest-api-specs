@@ -53,12 +53,12 @@ jobs:
         working-directory: ./eng/tools/${{ inputs.package }}
 
       - run: npm run lint
-        if: ${{ github.event.inputs.lint == 'true' }}
+        if: inputs.lint == true
         shell: pwsh
         working-directory: ./eng/tools/${{ inputs.package }}
 
       - run: npm run prettier
-        if: ${{ github.event.inputs.prettier == 'true' }}
+        if: inputs.prettier == true
         shell: pwsh
         working-directory: ./eng/tools/${{ inputs.package }}        
 

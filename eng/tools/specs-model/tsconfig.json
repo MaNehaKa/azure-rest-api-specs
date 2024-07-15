@@ -1,7 +1,7 @@
 {
   "extends": [
     "../tsconfig.json",
-    // [strictest]
+    // [strictest], but see the comment inside the extended file.
     "../tsconfig_strictest.json"
   ],
   "compilerOptions": {
@@ -10,7 +10,7 @@
     "lib": ["ES2022"],
 
     // checkJS is set to true by [strictest] but we need to disable it to avoid this [build failure].
-    // We don't need it anyway, as all sources are in JS except the cmd entry-point.
+    // We don't need it anyway, as all sources are in .js except the 3-line cmd entry-point.
     // https://www.typescriptlang.org/tsconfig/#checkJs
     "checkJs": false
   }
