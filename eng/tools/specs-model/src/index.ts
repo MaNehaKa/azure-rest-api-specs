@@ -16,10 +16,10 @@ function getUsage(): string {
 }
 
 export async function main() {
-  const arguments_: string[] = process.argv.slice(2);
+  const args: string[] = process.argv.slice(2);
 
-  if (arguments_.length > 0) {
-    const path: string = arguments_[0]!;
+  if (args.length > 0) {
+    const path: string = args[0]!;
     const specsModel: string = await getSpecsModel(path);
     console.log(JSON.stringify(specsModel));
     exit(0);
