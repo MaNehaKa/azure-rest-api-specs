@@ -30,14 +30,11 @@
     "@types/lodash": "^4.17.6",
     "@types/node": "^20.14.10",
     "@vitest/coverage-v8": "^2.0.2",
-    "eslint": "^9.7.0",
+    "eslint": "^8.56.0",
     "eslint-plugin-unicorn": "^54.0.0",
     "typescript": "~5.5.3",
     "typescript-eslint": "^7.16.0",
     "vitest": "^2.0.2"
-  },
-  "overrides": {
-    "eslint": "^9.7.0"
   }
 }
 
