@@ -29,4 +29,4 @@ export async function main() {
   }
 }
 
-export { getSpecsModel } from "./getSpecsModel.js";
+export { getSpecsModel };
