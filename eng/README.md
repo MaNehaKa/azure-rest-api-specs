@@ -13,6 +13,9 @@ Below are code convention we strive to follow in `eng` directory:
 - We align `package.json` dependencies versions across all `package.json` files.
 - We align `package.json` dependencies numbers with [microsoft/typespec package.json].
   In few cases we allow more frequent update cadence.
+- We avoid doing package overrides. For example, we use `v8` of `eslint` instead of `v9` to avoid an override.
+  [See this comment for details][eslint override].
+- We order `package.json` keys as follows: `name private type main bin scripts engines dependencies devDependencies`.
 
 ### package-lock.json
 
@@ -30,3 +33,4 @@ Below are code convention we strive to follow in `eng` directory:
 [Design guidelines for spec repos validation tooling]: https://dev.azure.com/azure-sdk/internal/_wiki/wikis/internal.wiki/1153/Design-guidelines-for-spec-repos-validation-tooling
 [microsoft/typespec package.json]: https://github.com/microsoft/typespec/blob/main/package.json
 [microsoft/typespec .prettierrc.json]: https://github.com/microsoft/typespec/blob/main/.prettierrc.json
+[eslint override]: https://github.com/Azure/azure-rest-api-specs/pull/29820#pullrequestreview-2177045580
