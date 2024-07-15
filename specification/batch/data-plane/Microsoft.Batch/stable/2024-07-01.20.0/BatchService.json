@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "BatchServiceClient",
-    "version": "2024-07-01",
+    "version": "2024-07-01.20.0",
     "description": "A client for issuing REST requests to the Azure Batch service."
   },
   "x-ms-parameterized-host": {
@@ -5805,9 +5805,6 @@
           "Add a simple pool with resourceTags": {
             "$ref": "./examples/PoolAdd_ResourceTags.json"
           },
-          "Add a CloudServiceConfiguration pool": {
-            "$ref": "./examples/PoolAdd_CloudServiceConfiguration.json"
-          },
           "Add a VirtualMachineConfiguration pool": {
             "$ref": "./examples/PoolAdd_VirtualMachineConfiguration.json"
           },
@@ -7720,6 +7717,9 @@
           },
           "Add a container task with container data isolation": {
             "$ref": "./examples/TaskAdd_ContainerSettingsWithDataIsolation.json"
+          },
+          "Add a container task with container data isolation bad request duplicate sources": {
+            "$ref": "./examples/TaskAdd_ContainerSettingsWithDataIsolation_DuplicateSources.json"
           }
         },
         "summary": "Adds a Task to the specified Job.",
@@ -10269,7 +10269,7 @@
           }
         },
         "summary": "Gets the settings required for remote login to a Compute Node.",
-        "description": "Before you can remotely login to a Compute Node using the remote login settings, you must create a user Account on the Compute Node. This API can be invoked only on Pools created with the virtual machine configuration property. For Pools created with a cloud service configuration, see the GetRemoteDesktop API.",
+        "description": "Before you can remotely login to a Compute Node using the remote login settings, you must create a user Account on the Compute Node.",
         "x-ms-request-id": "request-id",
         "parameters": [
           {
@@ -10362,127 +10362,6 @@
             "description": "A response containing the login settings.",
             "schema": {
               "$ref": "#/definitions/ComputeNodeGetRemoteLoginSettingsResult"
-            }
-          },
-          "default": {
-            "description": "The error from the Batch service.",
-            "schema": {
-              "$ref": "#/definitions/BatchError"
-            }
-          }
-        }
-      }
-    },
-    "/pools/{poolId}/nodes/{nodeId}/rdp": {
-      "get": {
-        "tags": [
-          "ComputeNodes"
-        ],
-        "operationId": "ComputeNode_GetRemoteDesktop",
-        "x-ms-examples": {
-          "Get RDP file of the compute node": {
-            "$ref": "./examples/NodeGetRemoteDesktop.json"
-          }
-        },
-        "summary": "Gets the Remote Desktop Protocol file for the specified Compute Node.",
-        "description": "Before you can access a Compute Node by using the RDP file, you must create a user Account on the Compute Node. This API can only be invoked on Pools created with a cloud service configuration. For Pools created with a virtual machine configuration, see the GetRemoteLoginSettings API.",
-        "x-ms-request-id": "request-id",
-        "parameters": [
-          {
-            "name": "poolId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The ID of the Pool that contains the Compute Node."
-          },
-          {
-            "name": "nodeId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "The ID of the Compute Node for which you want to get the Remote Desktop Protocol file."
-          },
-          {
-            "name": "timeout",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32",
-            "default": 30,
-            "description": "The maximum time that the server can spend processing the request, in seconds. The default is 30 seconds. If the value is larger than 30, the default will be used instead.",
-            "x-ms-parameter-grouping": {
-              "postfix": "Options"
-            }
-          },
-          {
-            "name": "client-request-id",
-            "in": "header",
-            "required": false,
-            "type": "string",
-            "format": "uuid",
-            "description": "The caller-generated request identity, in the form of a GUID with no decoration such as curly braces, e.g. 9C4D50EE-2D56-4CD3-8152-34347DC9F2B0.",
-            "x-ms-parameter-grouping": {
-              "postfix": "Options"
-            },
-            "x-ms-client-request-id": true
-          },
-          {
-            "name": "return-client-request-id",
-            "default": false,
-            "in": "header",
-            "required": false,
-            "type": "boolean",
-            "description": "Whether the server should return the client-request-id in the response.",
-            "x-ms-parameter-grouping": {
-              "postfix": "Options"
-            }
-          },
-          {
-            "name": "ocp-date",
-            "in": "header",
-            "required": false,
-            "type": "string",
-            "format": "date-time-rfc1123",
-            "description": "The time the request was issued. Client libraries typically set this to the current system clock time; set it explicitly if you are calling the REST API directly.",
-            "x-ms-parameter-grouping": {
-              "postfix": "Options"
-            }
-          },
-          {
-            "$ref": "#/parameters/ApiVersionParameter"
-          }
-        ],
-        "produces": [
-          "application/json",
-          "application/octet-stream"
-        ],
-        "responses": {
-          "200": {
-            "headers": {
-              "client-request-id": {
-                "description": "The client-request-id provided by the client during the request. This will be returned only if the return-client-request-id parameter was set to true.",
-                "type": "string",
-                "format": "uuid"
-              },
-              "request-id": {
-                "description": "A unique identifier for the request that was made to the Batch service. If a request is consistently failing and you have verified that the request is properly formulated, you may use this value to report the error to Microsoft. In your report, include the value of this request ID, the approximate time that the request was made, the Batch Account against which the request was made, and the region that Account resides in.",
-                "type": "string",
-                "format": "uuid"
-              },
-              "ETag": {
-                "description": "The ETag HTTP response header. This is an opaque string. You can use it to detect whether the resource has changed between requests. In particular, you can pass the ETag to one of the If-Modified-Since, If-Unmodified-Since, If-Match or If-None-Match headers.",
-                "type": "string"
-              },
-              "Last-Modified": {
-                "description": "The time at which the resource was last modified.",
-                "type": "string",
-                "format": "date-time-rfc1123"
-              }
-            },
-            "description": "A response containing the RDP information.",
-            "schema": {
-              "type": "object",
-              "format": "file"
             }
           },
           "default": {
@@ -11771,7 +11650,7 @@
       "properties": {
         "subnetId": {
           "type": "string",
-          "title": "The ARM resource identifier of the virtual network subnet which Compute Nodes running Tasks from the Job will join for the duration of the Task. This will only work with a VirtualMachineConfiguration Pool.",
+          "title": "The ARM resource identifier of the virtual network subnet which Compute Nodes running Tasks from the Job will join for the duration of the Task.",
           "description": "The virtual network must be in the same region and subscription as the Azure Batch Account. The specified subnet should have enough free IP addresses to accommodate the number of Compute Nodes which will run Tasks from the Job. This can be up to the number of Compute Nodes in the Pool. The 'MicrosoftAzureBatch' service principal must have the 'Classic Virtual Machine Contributor' Role-Based Access Control (RBAC) role for the specified VNet so that Azure Batch service can schedule Tasks on the Nodes. This can be verified by checking if the specified VNet has any associated Network Security Groups (NSG). If communication to the Nodes in the specified subnet is denied by an NSG, then the Batch service will set the state of the Compute Nodes to unusable. This is of the form /subscriptions/{subscription}/resourceGroups/{group}/providers/{provider}/virtualNetworks/{network}/subnets/{subnet}. If the specified VNet has any associated Network Security Groups (NSG), then a few reserved system ports must be enabled for inbound communication from the Azure Batch service. For Pools created with a Virtual Machine configuration, enable ports 29876 and 29877, as well as port 22 for Linux and port 3389 for Windows. Port 443 is also required to be open for outbound connections for communications to Azure Storage. For more details see: https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration",
           "externalDocs": {
             "url": "https://azure.microsoft.com/en-us/documentation/articles/role-based-access-built-in-roles/#classic-virtual-machine-contributor",
@@ -12133,7 +12012,7 @@
         "loginMode": {
           "type": "string",
           "title": "The login mode for the user",
-          "description": "The default value for VirtualMachineConfiguration Pools is 'batch' and for CloudServiceConfiguration Pools is 'interactive'.",
+          "description": "The default is 'batch'.",
           "enum": [
             "batch",
             "interactive"
@@ -12148,7 +12027,7 @@
               },
               {
                 "value": "interactive",
-                "description": "The LOGON32_LOGON_INTERACTIVE Win32 login mode. UAC is enabled on Windows VirtualMachineConfiguration Pools. If this option is used with an elevated user identity in a Windows VirtualMachineConfiguration Pool, the user session will not be elevated unless the application executed by the Task command line is configured to always require administrative privilege or to always require maximum privilege."
+                "description": "The LOGON32_LOGON_INTERACTIVE Win32 login mode. UAC is enabled on Windows Pools. If this option is used with an elevated user identity in a Windows Pool, the user session will not be elevated unless the application executed by the Task command line is configured to always require administrative privilege or to always require maximum privilege."
               }
             ]
           }
@@ -12522,7 +12401,7 @@
         "storeLocation": {
           "type": "string",
           "title": "The location of the Certificate store on the Compute Node into which to install the Certificate.",
-          "description": "The default value is currentuser. This property is applicable only for Pools configured with Windows Compute Nodes (that is, created with cloudServiceConfiguration, or with virtualMachineConfiguration using a Windows Image reference). For Linux Compute Nodes, the Certificates are stored in a directory inside the Task working directory and an environment variable AZ_BATCH_CERTIFICATES_DIR is supplied to the Task to query for this location. For Certificates with visibility of 'remoteUser', a 'certs' directory is created in the user's home directory (e.g., /home/{user-name}/certs) and Certificates are placed in that directory.",
+          "description": "The default value is currentuser. This property is applicable only for Pools configured with Windows Compute Nodes. For Linux Compute Nodes, the Certificates are stored in a directory inside the Task working directory and an environment variable AZ_BATCH_CERTIFICATES_DIR is supplied to the Task to query for this location. For Certificates with visibility of 'remoteUser', a 'certs' directory is created in the user's home directory (e.g., /home/{user-name}/certs) and Certificates are placed in that directory.",
           "enum": [
             "currentuser",
             "localmachine"
@@ -12547,7 +12426,7 @@
         "storeName": {
           "type": "string",
           "title": "The name of the Certificate store on the Compute Node into which to install the Certificate.",
-          "description": "This property is applicable only for Pools configured with Windows Compute Nodes (that is, created with cloudServiceConfiguration, or with virtualMachineConfiguration using a Windows Image reference). Common store names include: My, Root, CA, Trust, Disallowed, TrustedPeople, TrustedPublisher, AuthRoot, AddressBook, but any custom store name can also be used. The default value is My."
+          "description": "This property is applicable only for Pools configured with Windows Compute Nodes. Common store names include: My, Root, CA, Trust, Disallowed, TrustedPeople, TrustedPublisher, AuthRoot, AddressBook, but any custom store name can also be used. The default value is My."
         },
         "visibility": {
           "type": "array",
@@ -12623,15 +12502,10 @@
           "title": "The size of the virtual machines in the Pool. All virtual machines in a Pool are the same size.",
           "description": "For information about available sizes of virtual machines in Pools, see Choose a VM size for Compute Nodes in an Azure Batch Pool (https://docs.microsoft.com/azure/batch/batch-pool-vm-sizes)."
         },
-        "cloudServiceConfiguration": {
-          "$ref": "#/definitions/CloudServiceConfiguration",
-          "title": "The cloud service configuration for the Pool.",
-          "description": "This property must be specified if the Pool needs to be created with Azure PaaS VMs. This property and virtualMachineConfiguration are mutually exclusive and one of the properties must be specified. If neither is specified then the Batch service returns an error; if you are calling the REST API directly, the HTTP status code is 400 (Bad Request). This property cannot be specified if the Batch Account was created with its poolAllocationMode property set to 'UserSubscription'."
-        },
         "virtualMachineConfiguration": {
           "$ref": "#/definitions/VirtualMachineConfiguration",
           "title": "The virtual machine configuration for the Pool.",
-          "description": "This property must be specified if the Pool needs to be created with Azure IaaS VMs. This property and cloudServiceConfiguration are mutually exclusive and one of the properties must be specified. If neither is specified then the Batch service returns an error; if you are calling the REST API directly, the HTTP status code is 400 (Bad Request)."
+          "description": "This property must be specified."
         },
         "taskSlotsPerNode": {
           "type": "integer",
@@ -13892,25 +13766,6 @@
       },
       "title": "An error that occurred when resizing a Pool."
     },
-    "CloudServiceConfiguration": {
-      "type": "object",
-      "properties": {
-        "osFamily": {
-          "type": "string",
-          "title": "The Azure Guest OS family to be installed on the virtual machines in the Pool.",
-          "description": "Possible values are:\n2 - OS Family 2, equivalent to Windows Server 2008 R2 SP1.\n3 - OS Family 3, equivalent to Windows Server 2012.\n4 - OS Family 4, equivalent to Windows Server 2012 R2.\n5 - OS Family 5, equivalent to Windows Server 2016.\n6 - OS Family 6, equivalent to Windows Server 2019. For more information, see Azure Guest OS Releases (https://azure.microsoft.com/documentation/articles/cloud-services-guestos-update-matrix/#releases)."
-        },
-        "osVersion": {
-          "type": "string",
-          "title": "The Azure Guest OS version to be installed on the virtual machines in the Pool.",
-          "description": "The default value is * which specifies the latest operating system version for the specified OS family."
-        }
-      },
-      "required": [
-        "osFamily"
-      ],
-      "title": "The configuration for Compute Nodes in a Pool based on the Azure Cloud Services platform."
-    },
     "ImageReference": {
       "type": "object",
       "properties": {
@@ -13946,8 +13801,13 @@
         },
         "sharedGalleryImageId": {
           "type": "string",
-          "title": "The shared gallery image unique identifier for VM deployment",
-          "description": "This property is mutually exclusive with virtualMachineImageId and can be fetched from shared gallery image GET call."
+          "title": "The shared gallery image unique identifier",
+          "description": "This property is mutually exclusive with other properties and can be fetched from shared gallery image GET call."
+        },
+        "communityGalleryImageId": {
+          "type": "string",
+          "title": "The community gallery image unique identifier",
+          "description": "This property is mutually exclusive with other properties and can be fetched from community gallery image GET call."
         }
       },
       "title": "A reference to an Azure Virtual Machines Marketplace Image or a Azure Compute Gallery Image. To get the list of all Azure Marketplace Image references verified by Azure Batch, see the 'List Supported Images' operation."
@@ -14611,7 +14471,7 @@
         "subnetId": {
           "type": "string",
           "title": "The ARM resource identifier of the virtual network subnet which the Compute Nodes of the Pool will join. This is of the form /subscriptions/{subscription}/resourceGroups/{group}/providers/{provider}/virtualNetworks/{network}/subnets/{subnet}.",
-          "description": "The virtual network must be in the same region and subscription as the Azure Batch Account. The specified subnet should have enough free IP addresses to accommodate the number of Compute Nodes in the Pool. If the subnet doesn't have enough free IP addresses, the Pool will partially allocate Nodes and a resize error will occur. The 'MicrosoftAzureBatch' service principal must have the 'Classic Virtual Machine Contributor' Role-Based Access Control (RBAC) role for the specified VNet. The specified subnet must allow communication from the Azure Batch service to be able to schedule Tasks on the Nodes. This can be verified by checking if the specified VNet has any associated Network Security Groups (NSG). If communication to the Nodes in the specified subnet is denied by an NSG, then the Batch service will set the state of the Compute Nodes to unusable. For Pools created with virtualMachineConfiguration only ARM virtual networks ('Microsoft.Network/virtualNetworks') are supported, but for Pools created with cloudServiceConfiguration both ARM and classic virtual networks are supported. If the specified VNet has any associated Network Security Groups (NSG), then a few reserved system ports must be enabled for inbound communication. For Pools created with a virtual machine configuration, enable ports 29876 and 29877, as well as port 22 for Linux and port 3389 for Windows. For Pools created with a cloud service configuration, enable ports 10100, 20100, and 30100. Also enable outbound connections to Azure Storage on port 443. For more details see: https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration",
+          "description": "The virtual network must be in the same region and subscription as the Azure Batch Account. The specified subnet should have enough free IP addresses to accommodate the number of Compute Nodes in the Pool. If the subnet doesn't have enough free IP addresses, the Pool will partially allocate Nodes and a resize error will occur. The 'MicrosoftAzureBatch' service principal must have the 'Classic Virtual Machine Contributor' Role-Based Access Control (RBAC) role for the specified VNet. The specified subnet must allow communication from the Azure Batch service to be able to schedule Tasks on the Nodes. This can be verified by checking if the specified VNet has any associated Network Security Groups (NSG). If communication to the Nodes in the specified subnet is denied by an NSG, then the Batch service will set the state of the Compute Nodes to unusable. Only ARM virtual networks ('Microsoft.Network/virtualNetworks') are supported. If the specified VNet has any associated Network Security Groups (NSG), then a few reserved system ports must be enabled for inbound communication. Enable ports 29876 and 29877, as well as port 22 for Linux and port 3389 for Windows. Also enable outbound connections to Azure Storage on port 443. For more details see: https://docs.microsoft.com/en-us/azure/batch/batch-api-basics#virtual-network-vnet-and-firewall-configuration",
           "externalDocs": {
             "url": "https://azure.microsoft.com/en-us/documentation/articles/role-based-access-built-in-roles/#classic-virtual-machine-contributor",
             "description": "Setting up RBAC for Azure Batch VNETs"
@@ -14641,13 +14501,11 @@
         },
         "endpointConfiguration": {
           "$ref": "#/definitions/PoolEndpointConfiguration",
-          "title": "The configuration for endpoints on Compute Nodes in the Batch Pool.",
-          "description": "Pool endpoint configuration is only supported on Pools with the virtualMachineConfiguration property."
+          "title": "The configuration for endpoints on Compute Nodes in the Batch Pool."
         },
         "publicIPAddressConfiguration": {
           "$ref": "#/definitions/PublicIPAddressConfiguration",
-          "title": "The Public IPAddress configuration for Compute Nodes in the Batch Pool.",
-          "description": "Public IP configuration property is only supported on Pools with the virtualMachineConfiguration property."
+          "title": "The Public IPAddress configuration for Compute Nodes in the Batch Pool."
         },
         "enableAcceleratedNetworking": {
           "type": "boolean",
@@ -14785,15 +14643,10 @@
           "title": "The size of virtual machines in the Pool. All virtual machines in a Pool are the same size.",
           "description": "For information about available sizes of virtual machines in Pools, see Choose a VM size for Compute Nodes in an Azure Batch Pool (https://docs.microsoft.com/azure/batch/batch-pool-vm-sizes)."
         },
-        "cloudServiceConfiguration": {
-          "$ref": "#/definitions/CloudServiceConfiguration",
-          "title": "The cloud service configuration for the Pool.",
-          "description": "This property and virtualMachineConfiguration are mutually exclusive and one of the properties must be specified. This property cannot be specified if the Batch Account was created with its poolAllocationMode property set to 'UserSubscription'."
-        },
         "virtualMachineConfiguration": {
           "$ref": "#/definitions/VirtualMachineConfiguration",
           "title": "The virtual machine configuration for the Pool.",
-          "description": "This property and cloudServiceConfiguration are mutually exclusive and one of the properties must be specified."
+          "description": "This property must be specified."
         },
         "resizeTimeout": {
           "type": "string",
@@ -14966,17 +14819,12 @@
         "vmSize": {
           "type": "string",
           "title": "The size of virtual machines in the Pool. All virtual machines in a Pool are the same size.",
-          "description": "For information about available sizes of virtual machines for Cloud Services Pools (pools created with cloudServiceConfiguration), see Sizes for Cloud Services (https://azure.microsoft.com/documentation/articles/cloud-services-sizes-specs/). Batch supports all Cloud Services VM sizes except ExtraSmall, A1V2 and A2V2. For information about available VM sizes for Pools using Images from the Virtual Machines Marketplace (pools created with virtualMachineConfiguration) see Sizes for Virtual Machines (Linux) (https://azure.microsoft.com/documentation/articles/virtual-machines-linux-sizes/) or Sizes for Virtual Machines (Windows) (https://azure.microsoft.com/documentation/articles/virtual-machines-windows-sizes/). Batch supports all Azure VM sizes except STANDARD_A0 and those with premium storage (STANDARD_GS, STANDARD_DS, and STANDARD_DSV2 series)."
-        },
-        "cloudServiceConfiguration": {
-          "$ref": "#/definitions/CloudServiceConfiguration",
-          "title": "The cloud service configuration for the Pool.",
-          "description": "This property and virtualMachineConfiguration are mutually exclusive and one of the properties must be specified. This property cannot be specified if the Batch Account was created with its poolAllocationMode property set to 'UserSubscription'."
+          "description": "For information about available VM sizes, see Sizes for Virtual Machines (Linux) (https://azure.microsoft.com/documentation/articles/virtual-machines-linux-sizes/) or Sizes for Virtual Machines (Windows) (https://azure.microsoft.com/documentation/articles/virtual-machines-windows-sizes/). Batch supports all Azure VM sizes except STANDARD_A0 and those with premium storage (STANDARD_GS, STANDARD_DS, and STANDARD_DSV2 series)."
         },
         "virtualMachineConfiguration": {
           "$ref": "#/definitions/VirtualMachineConfiguration",
           "title": "The virtual machine configuration for the Pool.",
-          "description": "This property and cloudServiceConfiguration are mutually exclusive and one of the properties must be specified."
+          "description": "This property must be specified."
         },
         "resizeTimeout": {
           "type": "string",
@@ -16439,7 +16287,7 @@
         "password": {
           "type": "string",
           "title": "The password of the Account.",
-          "description": "The password is required for Windows Compute Nodes (those created with 'cloudServiceConfiguration', or created with 'virtualMachineConfiguration' using a Windows Image reference). For Linux Compute Nodes, the password can optionally be specified along with the sshPublicKey property."
+          "description": "The password is required for Windows Compute Nodes. For Linux Compute Nodes, the password can optionally be specified along with the sshPublicKey property."
         },
         "sshPublicKey": {
           "type": "string",
@@ -16854,7 +16702,7 @@
         "virtualMachineConfiguration": {
           "$ref": "#/definitions/VirtualMachineConfiguration",
           "title": "The virtual machine configuration for the Pool.",
-          "description": "This property and cloudServiceConfiguration are mutually exclusive and one of the properties must be specified.<br /><br />This field can be updated only when the pool is empty."
+          "description": "This property must be specified.<br /><br />This field can be updated only when the pool is empty."
         },
         "networkConfiguration": {
           "$ref": "#/definitions/NetworkConfiguration",
@@ -16910,7 +16758,7 @@
         "password": {
           "type": "string",
           "title": "The password of the Account.",
-          "description": "The password is required for Windows Compute Nodes (those created with 'cloudServiceConfiguration', or created with 'virtualMachineConfiguration' using a Windows Image reference). For Linux Compute Nodes, the password can optionally be specified along with the sshPublicKey property. If omitted, any existing password is removed."
+          "description": "The password is required for Windows Compute Nodes. For Linux Compute Nodes, the password can optionally be specified along with the sshPublicKey property. If omitted, any existing password is removed."
         },
         "expiryTime": {
           "type": "string",
@@ -18079,7 +17927,8 @@
           "type": "string",
           "title": "Specifies the SecurityType of the virtual machine. It has to be set to any specified value to enable UefiSettings.",
           "enum": [
-            "trustedLaunch"
+            "trustedLaunch",
+            "confidentialVM"
           ],
           "x-ms-enum": {
             "name": "SecurityTypes",
@@ -18159,8 +18008,7 @@
         },
         "rollingUpgradePolicy": {
           "$ref": "#/definitions/RollingUpgradePolicy",
-          "title": "The configuration parameters used while performing a rolling upgrade.",
-          "description": "This property is only supported on Pools with the virtualMachineConfiguration property."
+          "title": "The configuration parameters used while performing a rolling upgrade."
         }
       },
       "required": [
